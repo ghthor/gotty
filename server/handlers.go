@@ -165,8 +165,11 @@ func (server *Server) processWSConn(ctx context.Context, conn *websocket.Conn) e
 	}
 
 	err = tty.Run(ctx)
+	if err != nil && !errors.Is(err, context.Canceled) {
+		return err
+	}
 
-	return err
+	return nil
 }
 
 func (server *Server) handleIndex(w http.ResponseWriter, r *http.Request) {

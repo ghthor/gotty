@@ -1,6 +1,6 @@
 module github.com/ghthor/gotty/v2
 
-go 1.23.0
+go 1.24.0
 
 require (
 	github.com/NYTimes/gziphandler v1.1.1
@@ -11,6 +11,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/urfave/cli v1.22.14
 	github.com/yudai/hcl v0.0.0-20151013225006-5fa2393b3552
+	golang.org/x/sync v0.17.0
 )
 
 require (
