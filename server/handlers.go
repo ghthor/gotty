@@ -72,7 +72,7 @@ func (server *Server) generateHandleWS(ctx context.Context, cancel context.Cance
 		}
 		defer conn.Close()
 
-		err = server.processWSConn(ctx, conn)
+		err = server.processWSConn(r.Context(), conn)
 
 		switch err {
 		case ctx.Err():
@@ -117,7 +117,7 @@ func (server *Server) processWSConn(ctx context.Context, conn *websocket.Conn) e
 	params := query.Query()
 
 	var slave Slave
-	slave, err = server.factory.New(params, conn)
+	slave, err = server.factory.New(ctx, params, conn)
 	if err != nil {
 		return errors.Wrapf(err, "failed to create backend")
 	}
