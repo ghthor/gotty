@@ -3,6 +3,7 @@ import { lib } from "libapps";
 import { IDisposable, Terminal } from "@xterm/xterm";
 import { FitAddon } from "@xterm/addon-fit";
 import { WebglAddon } from "@xterm/addon-webgl";
+import { WebLinksAddon } from "@xterm/addon-web-links";
 
 import { waitForElement } from "./waitFor";
 
@@ -34,6 +35,7 @@ export class Xterm {
 
     this.fitAddon = new FitAddon();
     this.term.loadAddon(this.fitAddon);
+    this.term.loadAddon(new WebLinksAddon());
 
     this.message = elem.ownerDocument.createElement("div");
     this.message.className = "xterm-overlay";
