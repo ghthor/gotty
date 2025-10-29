@@ -1,8 +1,8 @@
 import { lib } from "libapps";
 
-import { IDisposable, Terminal } from "xterm";
-import { FitAddon } from "xterm-addon-fit";
-import { WebglAddon } from "xterm-addon-webgl";
+import { IDisposable, Terminal } from "@xterm/xterm";
+import { FitAddon } from "@xterm/addon-fit";
+import { WebglAddon } from "@xterm/addon-webgl";
 
 import { waitForElement } from "./waitFor";
 
@@ -14,7 +14,7 @@ export class Xterm {
 
   message: HTMLElement;
   messageTimeout: number;
-  messageTimer: NodeJS.Timer;
+  messageTimer: ReturnType<typeof setTimeout>;
 
   fitAddon: FitAddon;
   disposables: IDisposable[] = [];

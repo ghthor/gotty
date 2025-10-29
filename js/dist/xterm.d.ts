@@ -1,7 +1,6 @@
-/// <reference types="node" />
 import { lib } from "libapps";
-import { IDisposable, Terminal } from "xterm";
-import { FitAddon } from "xterm-addon-fit";
+import { IDisposable, Terminal } from "@xterm/xterm";
+import { FitAddon } from "@xterm/addon-fit";
 export declare class Xterm {
     elem: HTMLElement;
     term: Terminal;
@@ -9,7 +8,7 @@ export declare class Xterm {
     decoder: lib.UTF8Decoder;
     message: HTMLElement;
     messageTimeout: number;
-    messageTimer: NodeJS.Timer;
+    messageTimer: ReturnType<typeof setTimeout>;
     fitAddon: FitAddon;
     disposables: IDisposable[];
     constructor(elem: HTMLElement);
