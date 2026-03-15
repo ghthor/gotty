@@ -16,6 +16,13 @@ import (
 	"github.com/ghthor/gotty/v2/webtty"
 )
 
+func zeroAsInfinity(format string, v int) string {
+	if v == 0 {
+		return "∞"
+	}
+	return fmt.Sprintf(format, v)
+}
+
 func (server *Server) generateHandleWS(ctx context.Context, cancel context.CancelFunc, counter *counter) http.HandlerFunc {
 	once := new(int64)
 
@@ -42,8 +49,8 @@ func (server *Server) generateHandleWS(ctx context.Context, cancel context.Cance
 		defer func() {
 			num := counter.done()
 			log.Printf(
-				"Connection closed by %s: %s, connections: %d/%d",
-				closeReason, r.RemoteAddr, num, server.options.MaxConnection,
+				"Connection closed by %s: %s, connections: %d/%s",
+				closeReason, r.RemoteAddr, num, zeroAsInfinity("%d", server.options.MaxConnection),
 			)
 
 			if server.options.Once {
@@ -58,7 +65,10 @@ func (server *Server) generateHandleWS(ctx context.Context, cancel context.Cance
 			}
 		}
 
-		log.Printf("New client connected: %s, connections: %d/%d", r.RemoteAddr, num, server.options.MaxConnection)
+		log.Printf(
+			"New client connected: %s, connections: %d/%s",
+			r.RemoteAddr, num, zeroAsInfinity("%d", server.options.MaxConnection),
+		)
 
 		if r.Method != "GET" {
 			http.Error(w, "Method not allowed", 405)
